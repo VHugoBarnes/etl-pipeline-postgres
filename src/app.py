@@ -1,8 +1,13 @@
 #coding: utf-8
-import classes.DBConn
-from classes.Sales import Sales
+import psycopg2
+import pygrametl
+from pygrametl.datasources import SQLSource
+from pygrametl.tables import Dimension, FactTable
 
-if __name__ == '__main__':
-    # classes.DBConn.DBConn.connect(filename='salesdb.ini')
-    sales = Sales('salesdb.ini')
-    print("La cantidad de registros en la tabla card es:", sales.getCardCount())
+sales_string = "host='localhost' dbname='sales' user='vhugobarnes' password='maliakaka55'"
+sales_pgconn = psycopg2.connect(sales_string)
+
+dwh_string = "host='localhost' dbname='sales_dwh' user='vhugobarnes' password='maliakaka55'"
+dwh_pgconn = psycopg2.connect(dwh_string)
+
+dw_conn_wrapper = pygrametl.ConnectionWrapper(connection=dwh_pgconn)
