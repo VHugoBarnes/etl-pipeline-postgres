@@ -6,11 +6,11 @@ from pygrametl.datasources import SQLSource
 from pygrametl.tables import Dimension, FactTable
 
 # Abrir la conexión para la base de datos fuente, crea una conexión de tipo ConnectionWrapper
-sales_string = "host='localhost' dbname='sales' user='vhugobarnes' password='maliakaka55'"
+sales_string = "host='localhost' dbname='sales' user='youruser' password='yourpassword'"
 sales_pgconn = psycopg2.connect(sales_string)
 
 # Abrir la conexión para la base de datos destino, crea una conexión de tipo ConnectionWrapper
-dwh_string = "host='localhost' dbname='sales_dwh' user='vhugobarnes' password='maliakaka55'"
+dwh_string = "host='localhost' dbname='sales_dwh' user='youruser' password='yourpassword'"
 dwh_pgconn = psycopg2.connect(dwh_string)
 dw_conn_wrapper = pygrametl.ConnectionWrapper(connection=dwh_pgconn)
 

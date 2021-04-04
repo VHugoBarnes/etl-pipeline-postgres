@@ -21,7 +21,9 @@ Esta proyecto utiliza la version de Python 3.8 y los paquetes de pip que ocupa d
 
 Puedes ejecutar el proyecto siempre y cuando tengas las dos bases de datos hechas. Si no tienes la base de datos para el datawarehouse abre el archivo `database.sql`, copia y ejecuta la sección para la creación de la base de datos.   
 
-Teniendo las dos bases de datos hechas ya puedes ejecutar el script de la siguiente manera:   
+También asegurate de colocar tus datos correctamente en las líneas sales_string y dwh_string para que funcione correctamente.
+
+Teniendo las dos bases de datos y puesto tus datos en sales_string y dwh_string ya puedes ejecutar el script de la siguiente manera:   
 
 ## Si estás con un ambiente virtual (virtualenv o env)
 
