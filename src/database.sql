@@ -49,3 +49,21 @@ CREATE TABLE public.fact_table (
 	CONSTRAINT fact_table_fk_3 FOREIGN KEY (id_job_title) REFERENCES public.dim_job_title(id_job_title),
 	CONSTRAINT fact_table_fk_4 FOREIGN KEY (id_country) REFERENCES public.dim_country(id_country)
 );
+
+ALTER TABLE public.fact_table ALTER COLUMN min_sale_paid TYPE numeric(10,2) USING min_sale_paid::numeric;
+ALTER TABLE public.fact_table ALTER COLUMN max_sale_paid TYPE numeric(10,2) USING max_sale_paid::numeric;
+ALTER TABLE public.fact_table ALTER COLUMN count_sale_paid TYPE numeric(10,2) USING count_sale_paid::numeric;
+ALTER TABLE public.fact_table ALTER COLUMN sum_sale_paid TYPE numeric(10,2) USING sum_sale_paid::numeric;
+ALTER TABLE public.fact_table ALTER COLUMN avg_sale_paid TYPE numeric(10,2) USING avg_sale_paid::numeric;
+
+-- Fin de creación de tablas y base de datos para el dwh
+
+----------------------------------------------------------------------------------------------------
+
+-- Query para la base de datos sale
+select ca.card , cl.country, sa.date_sale, cl.gender, cl.job_title, min(sa.sale_paid) as min_sale_paid, max(sa.sale_paid) as max_sale_paid, count(sa.sale_paid) as count_sale_paid, sum(sa.sale_paid) as sum_sale_paid, avg(sa.sale_paid) as avg_sale_paid
+from sale sa
+inner join card ca on ca.id_card = sa.id_card
+inner join client cl on cl.id_client = ca.id_client
+group by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid
+order by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid;
