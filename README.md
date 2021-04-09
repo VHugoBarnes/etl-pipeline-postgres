@@ -12,7 +12,7 @@ El proyecto lleva a cabo una extracción, transformación y carga de datos de un
 
 # Descarga
 
-Puedes hacer un fork o un `git clone` con las opciones que proporciona GitHub o también descargarlo directamente [aquí](https://github.com/VHugoBarnes/proyecto-etl/releases/tag/v2.1).
+Puedes hacer un fork o un `git clone` con las opciones que proporciona GitHub o también descargarlo directamente [aquí](https://github.com/VHugoBarnes/proyecto-etl/releases/tag/v2.2).
 
 # Requerimientos
 
