@@ -42,7 +42,6 @@ CREATE TABLE public.fact_table (
 	count_sale_paid numeric(2) NOT NULL,
 	sum_sale_paid numeric(2) NOT NULL,
 	avg_sale_paid numeric(2) NOT NULL,
-	stddev_sale_paid numeric(2) NOT NULL,
 	CONSTRAINT fact_table_fk FOREIGN KEY (id_date_sale) REFERENCES public.dim_date_sale(id_date_sale),
 	CONSTRAINT fact_table_fk_1 FOREIGN KEY (id_card) REFERENCES public.dim_card(id_card),
 	CONSTRAINT fact_table_fk_2 FOREIGN KEY (id_gender) REFERENCES public.dim_gender(id_gender),
