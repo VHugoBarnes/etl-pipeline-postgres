@@ -54,6 +54,7 @@ ALTER TABLE public.fact_table ALTER COLUMN max_sale_paid TYPE numeric(10,2) USIN
 ALTER TABLE public.fact_table ALTER COLUMN count_sale_paid TYPE numeric(10,2) USING count_sale_paid::numeric;
 ALTER TABLE public.fact_table ALTER COLUMN sum_sale_paid TYPE numeric(10,2) USING sum_sale_paid::numeric;
 ALTER TABLE public.fact_table ALTER COLUMN avg_sale_paid TYPE numeric(10,2) USING avg_sale_paid::numeric;
+ALTER TABLE public.fact_table DROP COLUMN stddev_sale_paid;
 
 -- Fin de creación de tablas y base de datos para el dwh
 
