@@ -1,27 +1,25 @@
 #coding: utf-8
-from typing import Deque
 import psycopg2
 import pygrametl
 from pygrametl.datasources import SQLSource
 from pygrametl.tables import Dimension, FactTable
 
-# Abrir la conexión para la base de datos fuente, crea una conexión de tipo ConnectionWrapper
-sales_string = "host='localhost' dbname='sales' user='youruser' password='yourpassword'"
+# Abrir la conexión para la base de datos fuente
+sales_string = "host='localhost' dbname='sales' user='vhugobarnes' password='maliakaka55'"
 sales_pgconn = psycopg2.connect(sales_string)
 
 # Abrir la conexión para la base de datos destino, crea una conexión de tipo ConnectionWrapper
-dwh_string = "host='localhost' dbname='sales_dwh' user='youruser' password='yourpassword'"
+dwh_string = "host='localhost' dbname='sales_dwh' user='vhugobarnes' password='maliakaka55'"
 dwh_pgconn = psycopg2.connect(dwh_string)
 dw_conn_wrapper = pygrametl.ConnectionWrapper(connection=dwh_pgconn)
 
 # Extraction
 # Creación de las fuentes de datos de la base de datos sales
 # query para obtener todos los datos necesarios.
-sql = "select ca.card , cl.country, sa.date_sale, cl.gender, cl.job_title, min(sa.sale_paid) as min_sale_paid, max(sa.sale_paid) as max_sale_paid, count(sa.sale_paid) as count_sale_paid, sum(sa.sale_paid) as sum_sale_paid, avg(sa.sale_paid) as avg_sale_paid from sale sa inner join card ca on ca.id_card = sa.id_card inner join client cl on cl.id_client = ca.id_client group by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid order by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid;"
+sql = "select ca.card , cl.country, sa.date_sale, cl.gender, cl.job_title, min(sa.sale_paid) as min_sale_paid, max(sa.sale_paid) as max_sale_paid, count(sa.sale_paid) as count_sale_paid, sum(sa.sale_paid) as sum_sale_paid, avg(sa.sale_paid) as avg_sale_paid from sale sa, card ca, client cl where ca.id_card = sa.id_card and cl.id_client = ca.id_client group by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid order by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid;"
 # el nombre de los campos que genera la query.
 name_mapping = 'card', 'country', 'date_sale', 'gender', 'job_title', 'min_sale_paid', 'max_sale_paid', 'count_sale_paid', 'sum_sale_paid', 'avg_sale_paid'
 sales_source = SQLSource(connection=sales_pgconn, query=sql, names=name_mapping)
-
 
 # Data warehouse
 # Creamos los objetos para agregar posteriormente los datos al datawarehouse

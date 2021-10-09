@@ -61,9 +61,11 @@ ALTER TABLE public.fact_table DROP COLUMN stddev_sale_paid;
 ----------------------------------------------------------------------------------------------------
 
 -- Query para la base de datos sale
-select ca.card , cl.country, sa.date_sale, cl.gender, cl.job_title, min(sa.sale_paid) as min_sale_paid, max(sa.sale_paid) as max_sale_paid, count(sa.sale_paid) as count_sale_paid, sum(sa.sale_paid) as sum_sale_paid, avg(sa.sale_paid) as avg_sale_paid
-from sale sa
-inner join card ca on ca.id_card = sa.id_card
-inner join client cl on cl.id_client = ca.id_client
-group by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid
+select ca.card , cl.country, sa.date_sale, cl.gender, cl.job_title, 
+	min(sa.sale_paid) as min_sale_paid, max(sa.sale_paid) as max_sale_paid, 
+	count(sa.sale_paid) as count_sale_paid, sum(sa.sale_paid) as sum_sale_paid, 
+	avg(sa.sale_paid) as avg_sale_paid 
+from sale sa, card ca, client cl 
+where card ca.id_card = sa.id_card and cl.id_client = ca.id_client 
+group by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid 
 order by ca.card, cl.country, sa.date_sale, cl.gender, cl.job_title, sa.sale_paid;
